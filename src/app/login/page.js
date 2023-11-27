@@ -1,16 +1,25 @@
 'use client';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useRouter } from 'next/navigation'
+import { UserContext } from '@/context/UserAuth';
+
+
 // Import useClient from next/edge
 // import { useClient } from 'next/edge';
 
 const Login = () => {
-   
+    const {isLogged,setLogged} = useContext(UserContext)
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   
     const handleLogin = (e) => {
       e.preventDefault();
+      setLogged(true)
+      localStorage.setItem('fName','Rahat');
+      router.push('/');
+
       alert(email +'--sdd-'+ password);
     };
   
