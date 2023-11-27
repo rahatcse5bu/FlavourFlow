@@ -1,21 +1,25 @@
+import Link from 'next/link';
 import React from 'react';
 
 const Header = () => {
     return (
-<header class="bg-slate-900 p-4">
-    <div class="container mx-auto flex justify-between items-center">
+<header className="bg-slate-900 p-4">
+    <div className="container mx-auto flex justify-between items-center">
  
       <div>
-        <a href="#" class="text-white text-lg font-bold">Your Logo</a>
+        <Link href="#" className="text-white text-lg font-bold">Your Logo</Link>
       </div>
 
  
-      <nav class="flex space-x-4">
-        <a href="#" class="text-white hover:text-gray-300">Home</a>
-        <a href="#" class="text-white hover:text-gray-300">Menu</a>
-        <a href="#" class="text-white hover:text-gray-300">About Us</a>
-        <a href="#" class="text-white hover:text-gray-300">Contact Us</a>
-        <a href="#" class="text-white hover:text-gray-300">Login</a>
+      <nav className="flex items-center space-x-4">
+        <Link href="#" className="text-white hover:text-gray-300">Home</Link>
+        <Link href="#" className="text-white hover:text-gray-300">Menu</Link>
+        <Link href="#" className="text-white hover:text-gray-300">About Us</Link>
+        <Link href="#" className="text-white hover:text-gray-300">Contact Us</Link>
+        <Link href="#" className="text-white my-2 px-4 py-2 bg-blue-900 rounded-md">
+Login</Link>
+        <Link href="#" className="text-white my-2 px-4 py-2 bg-blue-900 rounded-md">
+Sign Up</Link>
       </nav>
     </div>
   </header>
