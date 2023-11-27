@@ -1,4 +1,6 @@
 'use client'
+import TabItems from '@/components/Dashboard/TabItems';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 // import { css } from '@emotion/react';
 import { BeatLoader } from 'react-spinners';
@@ -47,7 +49,9 @@ const ProfileForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-[70%] max-w-lg mx-auto my-4 py-4">
+ <>
+ <TabItems/>
+ <form onSubmit={handleSubmit} className="w-[70%] max-w-lg mx-auto my-4 py-4">
       {/* Full Name */}
       <h3 className='text-center text-2xl py-2'>Edit Profile</h3>
       <div className="mb-4">
@@ -152,6 +156,8 @@ const ProfileForm = () => {
       Save {loading && (<BeatLoader color="#ffffff" size={8} />)}
       </button>
     </form>
+ 
+ </>
   );
 };
 

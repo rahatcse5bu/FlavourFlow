@@ -29,8 +29,8 @@ router.push('/')
       <nav className="flex items-center space-x-4">
         <Link href="/" className="text-white hover:text-gray-300">Home</Link>
         <Link href="#" className="text-white hover:text-gray-300">Menu</Link>
-        <Link href="#" className="text-white hover:text-gray-300">About Us</Link>
-        <Link href="#" className="text-white hover:text-gray-300">Contact Us</Link>
+        <Link href="/about-us" className="text-white hover:text-gray-300">About Us</Link>
+        <Link href="/contact-us" className="text-white hover:text-gray-300">Contact Us</Link>
       {isLogged && (
         <> 
         <Link href="/profile" className="text-white my-2 px-4 py-2 bg-blue-900 inline rounded-[50%]">
