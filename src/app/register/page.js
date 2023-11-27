@@ -55,7 +55,8 @@ const RegisterPage = () => {
             return (
               <div className="flex items-center justify-center">
                 <div className="max-w-md mx-auto mt-8 p-6 border rounded-md shadow-md">
-                  <h2 className="text-2xl text-white text-center font-semibold mb-6">Registration</h2>
+                  <h2 className="text-2xl  text-center font-semibold mb-6">Registration</h2>
+                
                   <form onSubmit={handleRegister} >
                   <ToastContainer />
                     <div className="mb-4">

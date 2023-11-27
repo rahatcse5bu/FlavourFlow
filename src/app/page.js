@@ -6,7 +6,6 @@ import HomeMenu from '@/components/layouts/HomeMenu'
 export default function Home() {
   return (
  <>
-
 <Hero/>
 <HomeMenu/>
  </>
