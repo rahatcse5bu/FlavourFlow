@@ -1,6 +1,8 @@
+'use client';
+import Link from 'next/link';
 import React, { useState } from 'react';
 // Import useClient from next/edge
-import { useClient } from 'next/edge';
+// import { useClient } from 'next/edge';
 
 const Login = () => {
    
@@ -9,11 +11,11 @@ const Login = () => {
   
     const handleLogin = (e) => {
       e.preventDefault();
-      alert(`${email} --- ${password}`);
+      alert(email +'--sdd-'+ password);
     };
   
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <div className="max-w-md mx-auto mt-8 p-6 border rounded-md shadow-md">
           <h2 className="text-2xl text-white text-center font-semibold mb-6">Login</h2>
           <form onSubmit={handleLogin}>
@@ -40,9 +42,9 @@ const Login = () => {
           <div className="mt-4 text-center">
             <p>
               Don`t have an account?{' '}
-              <a href="/register" className="text-blue-500">
+              <Link href="/register" className="text-blue-500">
                 Register here
-              </a>
+              </Link>
             </p>
           </div>
         </div>

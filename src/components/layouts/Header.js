@@ -7,7 +7,7 @@ const Header = () => {
     <div className="container mx-auto flex justify-between items-center">
  
       <div>
-        <Link href="#" className="text-white text-lg font-bold">Your Logo</Link>
+        <Link href="/" className="text-white text-lg font-bold">Your Logo</Link>
       </div>
 
  
@@ -16,9 +16,9 @@ const Header = () => {
         <Link href="#" className="text-white hover:text-gray-300">Menu</Link>
         <Link href="#" className="text-white hover:text-gray-300">About Us</Link>
         <Link href="#" className="text-white hover:text-gray-300">Contact Us</Link>
-        <Link href="#" className="text-white my-2 px-4 py-2 bg-blue-900 rounded-md">
+        <Link href="/login" className="text-white my-2 px-4 py-2 bg-blue-900 rounded-md">
 Login</Link>
-        <Link href="#" className="text-white my-2 px-4 py-2 bg-blue-900 rounded-md">
+        <Link href="/register" className="text-white my-2 px-4 py-2 bg-blue-900 rounded-md">
 Sign Up</Link>
       </nav>
     </div>
