@@ -33,7 +33,7 @@ router.push('/')
         <Link href="/contact-us" className="text-white hover:text-gray-300">Contact Us</Link>
       {isLogged && (
         <> 
-        <Link href="/profile" className="text-white my-2 px-4 py-2 bg-blue-900 inline rounded-[50%]">
+        <Link href="/dashboard" className="text-white my-2 px-4 py-2 bg-blue-900 inline rounded-[50%]">
        {localStorage.getItem('fName')[0]}</Link>
         <Link href="/login" onClick={handleLogout} className="text-white my-2 px-4 py-2 bg-blue-900 rounded-md">
         Logout</Link> </>
