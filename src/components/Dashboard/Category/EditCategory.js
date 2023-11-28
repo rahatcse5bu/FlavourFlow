@@ -1,8 +1,9 @@
 import { CategoryContext } from '@/context/Category';
+import { GeneralContext } from '@/context/General';
 import React, { useContext } from 'react';
 
 const EditCategory = () => {
-    const {isEditCategory,setIsEditCategory} = useContext(CategoryContext)
+    const {tabMenuStatus,setTabMenuStatus} = useContext(GeneralContext)
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 border rounded-md bg-white">
@@ -23,10 +24,10 @@ const EditCategory = () => {
         {/* Add any other fields you want to edit here */}
 
         <div className="flex items-center justify-between">
-          <button onClick={(e)=>setIsEditCategory(false)} type="submit" className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+          <button onClick={(e)=>setTabMenuStatus((prev)=>({...prev,isCategoryEdit:false}))} type="submit" className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-600">
             Save Changes
           </button>
-          <button onClick={(e)=>setIsEditCategory(false)} className="bg-gray-300 text-gray-600 px-4 py-2 rounded-md hover:bg-gray-400">
+          <button onClick={(e)=>setTabMenuStatus((prev)=>({...prev,isCategoryEdit:false}))} className="bg-gray-300 text-gray-600 px-4 py-2 rounded-md hover:bg-gray-400">
             Cancel
           </button>
         </div>

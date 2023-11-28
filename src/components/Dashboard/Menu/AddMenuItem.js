@@ -13,7 +13,7 @@ const AddMenuItems = () => {
   return (
     <div className='grid grid-cols-3 gap-4'>
       <div className='col-span-1 flex flex-col items-center justify-center'>
-        <div className='w-40 h-40 bg-gray-500 rounded-md flex items-center justify-center'>
+        <div className='w-40 h-40 bg-gray-300 rounded-md flex items-center justify-center'>
           Image
         </div>
         <h4 className='text-center py-2 cursor-pointer'>Add/Edit Image</h4>

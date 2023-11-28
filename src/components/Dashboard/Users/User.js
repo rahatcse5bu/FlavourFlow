@@ -2,15 +2,15 @@ import React, { useContext } from 'react';
 import AddUser from './AddUser';
 import UserList from './UserList';
 import EditUser from './EditUser';
-import { DashboardUserContext } from '@/context/Users';
+import { GeneralContext } from '@/context/General';
 
 const User = () => {
-    const {isEditUser, setIsEditUser} = useContext(DashboardUserContext);
+    const {tabMenuStatus,setTabMenuStatus} = useContext(GeneralContext)
     return (
         <div>
             <AddUser/>
-            {!isEditUser &&(  <UserList/>)}
-           {isEditUser &&( <EditUser/> )}
+            {!tabMenuStatus.isUserEdit &&(  <UserList/>)}
+           {tabMenuStatus.isUserEdit &&( <EditUser/> )}
         </div>
     );
 };

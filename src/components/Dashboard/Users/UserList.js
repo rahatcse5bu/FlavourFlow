@@ -1,8 +1,8 @@
-import { DashboardUserContext } from '@/context/Users';
+import { GeneralContext } from '@/context/General';
 import React, { useContext } from 'react';
 
 const UserList = () => {
-  const {isEditUser, setIsEditUser} = useContext(DashboardUserContext);
+  const {tabMenuStatus,setTabMenuStatus} = useContext(GeneralContext)
 
   const users = [
     { id: 1, name: 'Rahat' },
@@ -19,10 +19,10 @@ const UserList = () => {
           <div key={user.id} className="flex items-center justify-between p-4 border rounded-md bg-white">
             <span className="text-lg">{user.name}</span>
             <div className="flex space-x-2">
-              <button onClick={(e)=>setIsEditUser(true)} className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+              <button onClick={(e)=>setTabMenuStatus((prev)=>({...prev,isUserEdit:true}))} className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                 Edit
               </button>
-              <button onClick={(e)=>setIsEditUser(false)}  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
+              <button onClick={(e)=>setTabMenuStatus((prev)=>({...prev,isUserEdit:false}))}  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
                 Delete
               </button>
             </div>
