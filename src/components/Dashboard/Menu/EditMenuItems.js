@@ -22,7 +22,7 @@ const EditMenuItems = () => {
         <form className="w-full max-w-md" onSubmit={handleAddItem}>
           <h3 className='text-center text-2xl py-2'>Menu Items</h3>
           <div className="mb-4">
-            <label htmlFor="itemName" className="block text-sm font-medium text-gray-600">
+            <label htmlFor="itemName" className="block text-sm font-medium text-gray-300">
               Item Name
             </label>
             <input

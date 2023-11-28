@@ -9,8 +9,9 @@ import { BeatLoader } from 'react-spinners';
 import RegisterPage from '../register/page';
 import DashboardMenuItems from '@/components/Dashboard/Menu/MenuItems';
 import Category from '@/components/Dashboard/Category/Category';
+import User from '@/components/Dashboard/Users/User';
 const Dashboard = () => {
-    const {isProfile,setIsProfile,isCategory,setIsCategory,isMenu, setisMenu,isUsers, setisUsers}  = useContext(GeneralContext)
+    const {isProfile,setIsProfile,isCategory,setIsCategory,isMenu, setisMenu,isUsers, setIsUsers,isOrders}  = useContext(GeneralContext)
 
   return (
  <>
@@ -19,7 +20,8 @@ const Dashboard = () => {
  {isProfile &&( <EditProfile/>)}
  {isCategory &&( <Category/>)}
   {isMenu &&( <DashboardMenuItems/>)}
- {isUsers &&( <EditProfile/>)} 
+ {isUsers &&( <User/>)} 
+ {isOrders &&( <User/>)} 
  
  </>
   );

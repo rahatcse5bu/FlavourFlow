@@ -56,7 +56,7 @@ const EditProfile = () => {
       <div className='grid grid-cols-4'>
         {/* Left Column */}
         <div className='col-span-1 text-center flex flex-col items-center justify-center rounded-md'>
-        <div className='w-40 h-40 bg-gray-400 rounded-md flex items-center justify-center'>
+        <div className='w-40 h-40 bg-gray-300 rounded-md flex items-center justify-center'>
           Image
         </div>
         <h4 className='text-center py-2'>Edit Image</h4>

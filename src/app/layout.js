@@ -4,6 +4,8 @@ import Header from '@/components/layouts/Header'
 import UserProvider from '@/context/UserAuth'
 import GenneralProvider from '@/context/General'
 import CategoryProvider from '@/context/Category'
+import DashboardUserProvider from '@/context/Users'
+import OrderProvider from '@/context/Orders'
 
 const roboto = Roboto({ subsets: ['latin'], weight:['100','300','400','500','700','900'] })
 
@@ -15,9 +17,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <UserProvider>
+      <UserProvider> 	
+
+        <DashboardUserProvider>
         <CategoryProvider>
       <GenneralProvider>
+        <OrderProvider>
       <body className={roboto.className}>
       
 <main className='max-w-5xl mx-auto bg-white p-4'>
@@ -30,8 +35,10 @@ export default function RootLayout({ children }) {
 </main>
 
       </body>
+      </OrderProvider>
       </GenneralProvider>
       </CategoryProvider>
+      </DashboardUserProvider>
       </UserProvider>
     </html>
   )
