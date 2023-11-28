@@ -17,7 +17,11 @@ const Login = () => {
     const handleLogin = (e) => {
       e.preventDefault();
       setLogged(true)
-      localStorage.setItem('fName','Rahat');
+      if (typeof window !== 'undefined') {
+        // Perform localStorage action
+           localStorage.setItem('fName','Rahat');
+      }
+ 
       router.push('/');
 
       alert(email +'--sdd-'+ password);
