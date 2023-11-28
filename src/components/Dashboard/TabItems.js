@@ -40,26 +40,26 @@ else if(item=='Users'){
       <div onClick={()=>setTabItem('Profile')} className='tab-item text-center text-white px-6 py-3 bg-blue-900 rounded-full cursor-pointer'>Profile</div>
       )}
       {!isProfile &&(
-              <div onClick={()=>setTabItem('Profile')} className='tab-item text-center text-white px-6 py-3 bg-gray-500 rounded-full cursor-pointer'>Profile</div>
+              <div onClick={()=>setTabItem('Profile')} className='tab-item text-center text-white px-6 py-3 bg-gray-400 rounded-full cursor-pointer'>Profile</div>
 
       )}
    {isCategory &&(
       <div onClick={()=>setTabItem('Category')} className='tab-item text-center text-white px-6 py-3 bg-blue-900 rounded-full cursor-pointer'>Category</div>
    )}
    {!isCategory &&(
-      <div onClick={()=>setTabItem('Category')} className='tab-item text-center text-white px-6 py-3 bg-gray-500 rounded-full cursor-pointer'>Category</div>
+      <div onClick={()=>setTabItem('Category')} className='tab-item text-center text-white px-6 py-3 bg-gray-400 rounded-full cursor-pointer'>Category</div>
    )}
    {isMenu &&(
       <div onClick={()=>setTabItem('Menu Items')}  className='tab-item text-center text-white px-6 py-3 bg-blue-900 rounded-full cursor-pointer'>Menu Items</div>
    )}
    {!isMenu &&(
-      <div onClick={()=>setTabItem('Menu Items')}  className='tab-item text-center text-white px-6 py-3 bg-gray-500 rounded-full cursor-pointer'>Menu Items</div>
+      <div onClick={()=>setTabItem('Menu Items')}  className='tab-item text-center text-white px-6 py-3 bg-gray-400 rounded-full cursor-pointer'>Menu Items</div>
    )}
    {isUsers &&(
       <div onClick={()=>setTabItem('Users')}  className='tab-item text-center text-white px-6 py-3 bg-blue-900 rounded-full cursor-pointer'>Users</div>
    )}
    {!isUsers &&(
-      <div onClick={()=>setTabItem('Users')}  className='tab-item text-center text-white px-6 py-3 bg-gray-500 rounded-full cursor-pointer'>Users</div>
+      <div onClick={()=>setTabItem('Users')}  className='tab-item text-center text-white px-6 py-3 bg-gray-400 rounded-full cursor-pointer'>Users</div>
    )}
   </div>
 </>

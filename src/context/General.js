@@ -16,6 +16,8 @@ const GenneralProvider = (props) => {
 	const [isProfile, setIsProfile] = useState(true);
 	const [isCategory, setIsCategory] = useState(false);
 	const [isMenu, setIsMenu] = useState(false);
+	const [isAddMenu, setIsAddMenu] = useState(false);
+	const [isMenuEdit, setIsMenuEdit] = useState(false);
 	const [isUsers, setIsUsers] = useState(false);
 	// console.log('9999'+JSON.parse(JSON.stringify(transactions.savedData)))
 	// const [transactions, addTransactions] = useState([
@@ -47,10 +49,14 @@ console.log(isProfile)
 		isProfile,
 		isCategory,
         isMenu,
+        isAddMenu,
+        isMenuEdit,
         isUsers,
         setIsProfile,
         setIsCategory,
         setIsMenu,
+        setIsMenuEdit,
+        setIsAddMenu,
         setIsUsers
 		// success,
 		// setSuccess,

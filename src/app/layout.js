@@ -3,6 +3,7 @@ import './globals.css'
 import Header from '@/components/layouts/Header'
 import UserProvider from '@/context/UserAuth'
 import GenneralProvider from '@/context/General'
+import CategoryProvider from '@/context/Category'
 
 const roboto = Roboto({ subsets: ['latin'], weight:['100','300','400','500','700','900'] })
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <UserProvider>
+        <CategoryProvider>
       <GenneralProvider>
       <body className={roboto.className}>
       
@@ -29,6 +31,7 @@ export default function RootLayout({ children }) {
 
       </body>
       </GenneralProvider>
+      </CategoryProvider>
       </UserProvider>
     </html>
   )
