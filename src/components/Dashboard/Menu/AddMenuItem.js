@@ -57,7 +57,7 @@ const AddMenuItems = () => {
           <button type="submit" disabled={loading} className="bg-blue-900 text-white py-2 px-6 rounded-md hover:bg-blue-700">
             Add Item {loading && (<BeatLoader color="#ffffff" size={8} />)}
           </button>
-          <button type="submit" disabled={loading} className="bg-red-900 text-white py-2 px-6 mx-2 rounded-md hover:bg-blue-700">
+          <button type="submit" disabled={loading} className="bg-red-700 text-white py-2 px-6 mx-2 rounded-md hover:bg-blue-700">
             Delete Item {loading && (<BeatLoader color="#ffffff" size={8} />)}
           </button>
         </form>

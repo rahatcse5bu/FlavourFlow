@@ -6,7 +6,7 @@ const UserList = () => {
   const {tabMenuStatus,setTabMenuStatus,selectedUser,setSelectedUser} = useContext(GeneralContext)
  const handleEditUser=(user)=>{
   setTabMenuStatus((prev)=>({...prev,isUserEdit:true}));
-  console.log('edit:'+JSON.stringify(selectedUser))
+  // console.log('edit:'+JSON.stringify(selectedUser))
   setSelectedUser((prev)=>({name:user.name}))
   
  }
