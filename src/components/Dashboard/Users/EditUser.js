@@ -1,8 +1,9 @@
-import { GeneralContext } from '@/context/General';
+import { GeneralContext } from '@/context/TabMenu';
 import React, { useContext } from 'react';
 
-const EditUser = () => {
-  const {tabMenuStatus,setTabMenuStatus} = useContext(GeneralContext)
+const EditUser = (user) => {
+
+  const {tabMenuStatus,setTabMenuStatus,selectedUser,setSelectedUser} = useContext(GeneralContext)
   return (
     <div className="max-w-md mx-auto mt-8 p-6 border rounded-md bg-white">
       <h2 className="text-2xl font-semibold mb-4">Edit User</h2>
@@ -14,6 +15,7 @@ const EditUser = () => {
           <input
             type="text"
             id="userName"
+            value={selectedUser.name}
             className="mt-1 p-2 w-full border rounded-md"
             // Add value and onChange handlers for controlled input
           />

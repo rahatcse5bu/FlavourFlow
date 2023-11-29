@@ -1,4 +1,4 @@
-import { GeneralContext } from '@/context/General';
+import { GeneralContext } from '@/context/TabMenu';
 import React, { useContext } from 'react';
 
 const SingleMenuItem = () => {

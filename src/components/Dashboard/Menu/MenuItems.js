@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import EditMenuItems from './EditMenuItems';
-import { GeneralContext } from '@/context/General';
+import { GeneralContext } from '@/context/TabMenu';
 import AddMenuItems from './AddMenuItem';
 import MenuItemGrid from './MenuItemGrid';
 

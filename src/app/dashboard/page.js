@@ -1,7 +1,7 @@
 'use client'
 import EditProfile from '@/components/Dashboard/EditProfile';
 import TabItems from '@/components/Dashboard/TabItems';
-import { GeneralContext } from '@/context/General';
+import { GeneralContext } from '@/context/TabMenu';
 import Link from 'next/link';
 import { useState, useEffect, useContext } from 'react';
 // import { css } from '@emotion/react';

@@ -2,7 +2,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layouts/Header";
 import UserProvider from "@/context/UserAuth";
-import GenneralProvider from "@/context/General";
+import GenneralProvider from "@/context/TabMenu";
 import CategoryProvider from "@/context/Category";
 import DashboardUserProvider from "@/context/Users";
 import OrderProvider from "@/context/Orders";

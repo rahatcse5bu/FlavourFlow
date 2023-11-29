@@ -1,5 +1,5 @@
 import { CategoryContext } from '@/context/Category';
-import { GeneralContext } from '@/context/General';
+import { GeneralContext } from '@/context/TabMenu';
 import React, { useContext } from 'react';
 
 const CategoryList = () => {

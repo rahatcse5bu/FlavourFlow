@@ -1,5 +1,5 @@
 'use client'
-import { GeneralContext } from '@/context/General';
+import { GeneralContext } from '@/context/TabMenu';
 import { UserContext } from '@/context/UserAuth';
 import Link from 'next/link';
 import React, { useContext } from 'react';

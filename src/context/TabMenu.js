@@ -31,6 +31,7 @@ const GenneralProvider = (props) => {
         isOrderEdit: false,
         isOrderAdd: false
     })
+    const [selectedUser,setSelectedUser] = useState({})
 
 	const value = {
         tabMenuStatus,
@@ -43,6 +44,8 @@ const GenneralProvider = (props) => {
         isAddMenu,
         isMenuEdit,
 
+        selectedUser,
+
         setIsProfile,
         setIsUsers,
         setIsCategory,
@@ -50,6 +53,8 @@ const GenneralProvider = (props) => {
         setIsOrders,
         setIsMenuEdit,
         setIsAddMenu,
+
+        setSelectedUser
         
 
 		// success,

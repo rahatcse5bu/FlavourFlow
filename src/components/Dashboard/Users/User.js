@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import AddUser from './AddUser';
 import UserList from './UserList';
 import EditUser from './EditUser';
-import { GeneralContext } from '@/context/General';
+import { GeneralContext } from '@/context/TabMenu';
 
 const User = () => {
     const {tabMenuStatus,setTabMenuStatus} = useContext(GeneralContext)
