@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import AddCategory from './AddCategory';
 import CategoryList from './CategoryList';
 import EditCategory from './EditCategory';
-import { CategoryContext } from '@/context/Category';
 import { GeneralContext } from '@/context/General';
 
 const Category = () => {

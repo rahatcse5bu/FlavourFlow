@@ -11,17 +11,17 @@ import DashboardMenuItems from '@/components/Dashboard/Menu/MenuItems';
 import Category from '@/components/Dashboard/Category/Category';
 import User from '@/components/Dashboard/Users/User';
 const Dashboard = () => {
-    const {isProfile,setIsProfile,isCategory,setIsCategory,isMenu, setisMenu,isUsers, setIsUsers,isOrders}  = useContext(GeneralContext)
+  const {tabMenuStatus,setTabMenuStatus} = useContext(GeneralContext)
 
   return (
  <>
  <TabItems/>
  <div class="w-full border-b border-solid border-gray mt-2"></div>
- {isProfile &&( <EditProfile/>)}
- {isCategory &&( <Category/>)}
-  {isMenu &&( <DashboardMenuItems/>)}
- {isUsers &&( <User/>)} 
- {isOrders &&( <User/>)} 
+ {tabMenuStatus.isProfileOpen &&( <EditProfile/>)}
+ {tabMenuStatus.isCategoryOpen &&( <Category/>)}
+  {tabMenuStatus.isMenuOpen &&( <DashboardMenuItems/>)}
+ {tabMenuStatus.isUserOpen &&( <User/>)} 
+ {tabMenuStatus.isOrderOpen &&( <User/>)} 
  
  </>
   );
