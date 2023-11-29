@@ -26,9 +26,8 @@ export default function RootLayout({ children }) {
             <GenneralProvider>
               <OrderProvider>
                 <body className={roboto.className}>
+                <Header />
                   <main className="max-w-5xl mx-auto bg-white p-4">
-                    <Header />
-
                     {children}
                     <footer className="border-t p-8 text-center text-gray-600 mt-16">
                       &copy; 2023 All rights reserved

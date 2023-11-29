@@ -24,7 +24,7 @@ router.push('/')
         firstName=   localStorage.getItem('fName')[0];
       }
     return (
-<header className="bg-[#005A9C] p-4">
+<header className="bg-[#005A9C] py-4 px-16">
     <div className="container mx-auto flex justify-between items-center">
  
       <div>
