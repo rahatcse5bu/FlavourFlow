@@ -1,11 +1,15 @@
 import { GeneralContext } from "@/context/TabMenu";
 import React, { useContext, useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import EditUser from "./EditUser";
 import { BeatLoader } from "react-spinners";
 const UserList = () => {
   const { tabMenuStatus, setTabMenuStatus, selectedUser, setSelectedUser } =
     useContext(GeneralContext);
   const [isLoading, setLoading] = useState(false);
+  const notify = (status) => toast(status);
+
   const [users, setUsers] = useState([
     { id: 1, name: "Rahat" },
     { id: 2, name: "Anis" },
@@ -15,15 +19,45 @@ const UserList = () => {
   const handleEditUser = (user) => {
     setTabMenuStatus((prev) => ({ ...prev, isUserEdit: true }));
     // console.log('edit:'+JSON.stringify(selectedUser))
-    setSelectedUser((prev) => ({ name: user.name }));
+    setSelectedUser((prev) => ({ _id:user._id,email: user.email }));
   };
   const handleDeleteUser = (user) => {
-    setTabMenuStatus((prev) => ({ ...prev, isUserEdit: false }));
+    deleteUser(user._id);
   };
   useEffect(() => {
     getUserList();
   }, []);
 
+  const deleteUser = async (user_id) => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        "https://food-order-backend-iota.vercel.app/api/v1/users/"+user_id,
+        {
+          method: "DELETE",
+         
+        }
+      );
+      if (response.ok) {
+        setLoading(false);
+        const { success, data } = await response.json();
+        if (success) {
+          setLoading(false);
+          notify('User Deleted successfully')
+        await  setTabMenuStatus((prev)=>({...prev,isUserEdit:false,isUserOpen:true}))
+         
+        }
+      } else {
+        setLoading(false);
+        notify('Error While delating the user')
+        console.log("Failed to delete user");
+      }
+    } catch (err) {
+      setLoading(false);
+      notify('Error')
+      console.err("Failed to delete user");
+    }
+  };
   const getUserList = async () => {
     setLoading(true);
     try {
@@ -71,7 +105,7 @@ const UserList = () => {
                   Edit
                 </button>
                 <button
-                  onClick={() => handleDeleteUser(user)}
+                  onClick={(e)=> {handleDeleteUser(user)}}
                   className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                 >
                   Delete
