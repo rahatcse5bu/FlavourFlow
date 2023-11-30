@@ -10,12 +10,7 @@ const UserList = () => {
   const [isLoading, setLoading] = useState(false);
   const notify = (status) => toast(status);
 
-  const [users, setUsers] = useState([
-    { id: 1, name: "Rahat" },
-    { id: 2, name: "Anis" },
-    { id: 3, name: "Subal" },
-    { id: 4, name: "Sujan" },
-  ]);
+  const [users, setUsers] = useState([]);
   const handleEditUser = (user) => {
     setTabMenuStatus((prev) => ({ ...prev, isUserEdit: true }));
     // console.log('edit:'+JSON.stringify(selectedUser))

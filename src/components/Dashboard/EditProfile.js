@@ -1,10 +1,9 @@
 import { GeneralContext } from '@/context/TabMenu';
 import React, { useEffect, useState } from 'react';
 import { BeatLoader } from 'react-spinners';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const EditProfile = () => {
-  const [loading, setLoading] = useState(false);
-
   // Form state
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -15,7 +14,75 @@ const EditProfile = () => {
   const [zipCode, setZipCode] = useState('');
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isLoading, setLoading] = useState(false);
+  const notify = (status) => toast(status);
 
+  const updateUser = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await fetch(
+        "https://food-order-backend-iota.vercel.app/api/v1/users/6568cf6e4e1c31805ea3937e",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstName,
+           lastName,
+            email,
+          phone, 
+            presentAddress,
+            permanentAddress,
+          zipCode,
+            city,
+           country, 
+
+          }),
+        }
+      );
+      if (response.ok) {
+        const { success, data } = await response.json();
+        if (success) {
+          setLoading(false);
+          notify("User Updated!!");
+        } else {
+          notify("Failed To update Profile!!");
+        }
+      } else {
+        setLoading(false);
+        notify("Failed To update user!!");
+        console.log(response);
+      }
+    } catch (er) {
+      setLoading(false);
+      notify("Error!!" + er);
+    }
+  };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Use the file for further processing, e.g., uploading to a server or updating state
+      setSelectedImage(file);
+
+      // If you want to preview the selected image, you can use FileReader
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imageUrl = event.target.result;
+        // Use imageUrl for previewing the image
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleEditImage = () => {
+    // Implement logic for editing/updating the image (e.g., uploading to a server)
+
+    // For demonstration purposes, log the selected image
+    console.log('Selected Image:', selectedImage);
+  };
   // Fetch user data and update form state (simulated with useEffect)
   useEffect(() => {
     // Simulated fetch
@@ -50,21 +117,35 @@ const EditProfile = () => {
       country,
     });
   };
-
+const imgBBKey='7b2df886bbb1704f6ffd66486cd13fdb';
   return (
     <>
       <div className='grid grid-cols-4'>
         {/* Left Column */}
         <div className='col-span-1 text-center flex flex-col items-center justify-center rounded-md'>
-        <div className='w-40 h-40 bg-gray-300 rounded-md flex items-center justify-center'>
-          Image
-        </div>
-        <h4 className='text-center py-2'>Edit Image</h4>
+          {/* Display selected image or default text */}
+          {selectedImage ? (
+            <img src={URL.createObjectURL(selectedImage)} alt='Selected' className='w-full h-full rounded-md object-cover' />
+          ) : (
+            'Image'
+          )}
+                  {/* Hidden file input for image upload */}
+        <input
+          id='uploadImage'
+          type='file'
+          accept='image/*'
+          onChange={handleImageChange}
+          // style={{ display: 'none' }}
+        />
+   
+      {/* Button to trigger image upload */}
+        <h4 className='text-center cursor-pointer py-2' onClick={handleEditImage}>Edit Image</h4>
         </div>
 
         {/* Right Column */}
         <div className='col-span-3'>
-          <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto py-4">
+          <ToastContainer/>
+          <form onSubmit={updateUser} className="w-full max-w-lg mx-auto py-4">
             {/* First Name*/}
             <h3 className='text-center text-2xl pt-2 pb-4'>Edit Profile</h3>
 
@@ -197,8 +278,8 @@ const EditProfile = () => {
             </div>
 
             {/* Save Button */}
-            <button type="submit" disabled={loading} className="bg-blue-900 text-white py-2 px-6 rounded-md hover:bg-blue-700">
-              Save {loading && (<BeatLoader color="#ffffff" size={8} />)}
+            <button type="submit" disabled={isLoading} className="bg-blue-900 text-white py-2 px-6 rounded-md hover:bg-blue-700">
+              Save {isLoading && (<BeatLoader color="#ffffff" size={8} />)}
             </button>
           </form>
         </div>
