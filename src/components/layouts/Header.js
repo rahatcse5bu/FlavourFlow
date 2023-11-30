@@ -16,6 +16,7 @@ const Header = () => {
 
     const handleLogout= ()=>{
         setLogged(false)
+        // localStorage.setItem('fName')[0]
 router.push('/')
     }
 
@@ -34,7 +35,7 @@ router.push('/')
  
       <nav className="flex items-center space-x-4">
         <Link href="/" className="text-white hover:text-gray-300">Home</Link>
-        <Link href="#" className="text-white hover:text-gray-300">Menu</Link>
+        <Link href="#homeMenu" className="text-white hover:text-gray-300">Menu</Link>
         <Link href="/about-us" className="text-white hover:text-gray-300">About Us</Link>
         <Link href="/contact-us" className="text-white hover:text-gray-300">Contact Us</Link>
       {isLogged && (

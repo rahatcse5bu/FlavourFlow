@@ -15,7 +15,7 @@ const EditMenuItems = () => {
     );
   };
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-3 gap-12">
       <div className="col-span-1 flex flex-col items-center justify-center">
         <div className="w-40 h-40 bg-gray-400 rounded-md flex items-center justify-center">
           Image
