@@ -18,7 +18,7 @@ const Login = () => {
     setLoading(true);
     e.preventDefault();
     try {
-      const resposne = await fetch(
+      const response = await fetch(
         "https://food-order-backend-iota.vercel.app/api/v1/users/login",
         {
           method: "POST",
@@ -28,20 +28,29 @@ const Login = () => {
           body: JSON.stringify({ email: email, password: password }),
         }
       );
-      if (resposne.ok) {
+      if (response.ok) {
+        const { success, data } = await response.json();
+        if(success){
         setLogged(true);
         setLoading(false)
-        console.log(resposne);
+        console.log(response.json);
         loginNotify("Login Suceess");
         if (typeof window !== "undefined") {
           // Perform localStorage action
-          localStorage.setItem("fName", "Rahat");
+          localStorage.setItem("lastName", data.lastName);
+          localStorage.setItem("user_id", data._id);
         }
-        router.push("/");
+        console.log(data)
+      //  if(isLogged) router.push("/");
+
+      }
+      else{
+        loginNotify("Login Failed");
+      }
       } else {
         setLogged(false);
         setLoading(false)
-        console.log(resposne);
+        console.log(response);
         loginNotify("Login Failed");
       }
     } catch (err) {

@@ -1,29 +1,36 @@
-import { GeneralContext } from '@/context/TabMenu';
-import React, { useEffect, useState } from 'react';
-import { BeatLoader } from 'react-spinners';
+import { GeneralContext } from "@/context/TabMenu";
+import React, { useEffect, useState } from "react";
+import { BeatLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const EditProfile = () => {
   // Form state
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [presentAddress, setPresentAddress] = useState('');
-  const [permanentAddress, setPermanentAddress] = useState('');
-  const [zipCode, setZipCode] = useState('');
-  const [city, setCity] = useState('');
-  const [country, setCountry] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [presentAddress, setPresentAddress] = useState("");
+  const [permanentAddress, setPermanentAddress] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setLoading] = useState(false);
+  const [isUserDataLoading, setUserDataLoading] = useState(false);
   const notify = (status) => toast(status);
-
+  const get_user_id = () => {
+    if (typeof window !== "undefined") {
+      // Perform localStorage action
+      return localStorage.getItem("user_id");
+    }
+  };
   const updateUser = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       const response = await fetch(
-        "https://food-order-backend-iota.vercel.app/api/v1/users/6568cf6e4e1c31805ea3937e",
+        "https://food-order-backend-iota.vercel.app/api/v1/users/" +
+        localStorage.getItem("user_id"),
         {
           method: "PUT",
           headers: {
@@ -31,15 +38,14 @@ const EditProfile = () => {
           },
           body: JSON.stringify({
             firstName,
-           lastName,
+            lastName,
             email,
-          phone, 
+            phone,
             presentAddress,
             permanentAddress,
-          zipCode,
+            zipCode,
             city,
-           country, 
-
+            country,
           }),
         }
       );
@@ -58,6 +64,44 @@ const EditProfile = () => {
       }
     } catch (er) {
       setLoading(false);
+      notify("Error!!" + er);
+    }
+  };
+  const getCurrentUserDetails = async () => {
+    // e.preventDefault();
+    setUserDataLoading(true);
+    try {
+      const response = await fetch(
+        "https://food-order-backend-iota.vercel.app/api/v1/users/" +
+        localStorage.getItem("user_id"),
+        {
+          method: "GET",
+        }
+      );
+      if (response.ok) {
+        const { success, data } = await response.json();
+        if (success) {
+          setUserDataLoading(false);
+          setFirstName(data.firstName);
+          setLastName(data.lastName);
+          setEmail(data.email);
+          setPhone(data.phone);
+          setPresentAddress(data.presentAddress);
+          setPermanentAddress(data.permanentAddress);
+          setZipCode(data.zipCode);
+          setCity(data.city);
+          setCountry(data.country);
+          // notify("User got!!");
+        } else {
+          // notify("Failed To get Profile!!");
+        }
+      } else {
+        setUserDataLoading(false);
+        notify("Failed To get user!!");
+        console.log(response);
+      }
+    } catch (er) {
+      setUserDataLoading(false);
       notify("Error!!" + er);
     }
   };
@@ -81,25 +125,26 @@ const EditProfile = () => {
     // Implement logic for editing/updating the image (e.g., uploading to a server)
 
     // For demonstration purposes, log the selected image
-    console.log('Selected Image:', selectedImage);
+    console.log("Selected Image:", selectedImage);
   };
   // Fetch user data and update form state (simulated with useEffect)
   useEffect(() => {
     // Simulated fetch
-    setFirstName('John');
-    setLastName('Doe');
-    setEmail('john@example.com');
-    setPhone('123-456-7890');
-    setPermanentAddress('123 Main St');
-    setPresentAddress('123 Main St');
-    setZipCode('12345');
-    setCity('Cityville');
-    setCountry('Countryland');
+    // setFirstName('John');
+    // setLastName('Doe');
+    // setEmail('john@example.com');
+    // setPhone('123-456-7890');
+    // setPermanentAddress('123 Main St');
+    // setPresentAddress('123 Main St');
+    // setZipCode('12345');
+    // setCity('Cityville');
+    // setCountry('Countryland');
+    getCurrentUserDetails();
   }, []); // Empty dependency array to run the effect once on mount
 
   setTimeout(() => {
     setLoading(false);
-    console.log('Action complete!');
+    console.log("Action complete!");
   }, 4000); // Simulating a 4-second action, adjust as needed
 
   // Handle form submission
@@ -107,7 +152,7 @@ const EditProfile = () => {
     setLoading(true);
     e.preventDefault();
     // Perform the logic to save the updated profile data
-    console.log('Form submitted:', {
+    console.log("Form submitted:", {
       firstName,
       email,
       phone,
@@ -117,54 +162,70 @@ const EditProfile = () => {
       country,
     });
   };
-const imgBBKey='7b2df886bbb1704f6ffd66486cd13fdb';
+  const imgBBKey = "7b2df886bbb1704f6ffd66486cd13fdb";
   return (
     <>
-      <div className='grid grid-cols-4'>
+      {isUserDataLoading && <BeatLoader className="flex items-center justify-center text-center"  color="#005A9C" size={16} />}
+    {!isUserDataLoading && ( <div className="grid grid-cols-4">
         {/* Left Column */}
-        <div className='col-span-1 text-center flex flex-col items-center justify-center rounded-md'>
+        <div className="col-span-1 text-center flex flex-col items-center justify-center rounded-md">
           {/* Display selected image or default text */}
           {selectedImage ? (
-            <img src={URL.createObjectURL(selectedImage)} alt='Selected' className='w-full h-full rounded-md object-cover' />
+            <img
+              src={URL.createObjectURL(selectedImage)}
+              alt="Selected"
+              className="w-full h-full rounded-md object-cover"
+            />
           ) : (
-            'Image'
+            "Image"
           )}
-                  {/* Hidden file input for image upload */}
-        <input
-          id='uploadImage'
-          type='file'
-          accept='image/*'
-          onChange={handleImageChange}
-          // style={{ display: 'none' }}
-        />
-   
-      {/* Button to trigger image upload */}
-        <h4 className='text-center cursor-pointer py-2' onClick={handleEditImage}>Edit Image</h4>
+          {/* Hidden file input for image upload */}
+          <input
+            id="uploadImage"
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            // style={{ display: 'none' }}
+          />
+
+          {/* Button to trigger image upload */}
+          <h4
+            className="text-center cursor-pointer py-2"
+            onClick={handleEditImage}
+          >
+            Edit Image
+          </h4>
         </div>
 
         {/* Right Column */}
-        <div className='col-span-3'>
-          <ToastContainer/>
+        <div className="col-span-3">
+          <ToastContainer />
           <form onSubmit={updateUser} className="w-full max-w-lg mx-auto py-4">
             {/* First Name*/}
-            <h3 className='text-center text-2xl pt-2 pb-4'>Edit Profile</h3>
+            <h3 className="text-center text-2xl pt-2 pb-4">Edit Profile</h3>
 
             <div className="mb-4 flex">
               <div className="w-1/2 mr-2">
-              <label htmlFor="firstName" className="block text-sm font-medium text-gray-600">
-                First Name
-              </label>
+                <label
+                  htmlFor="firstName"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  First Name
+                </label>
 
-              <input
-                type="text"
-                id="firstName"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                className="mt-1 p-2 w-full border rounded-md"
-              />
+                <input
+                  type="text"
+                  id="firstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="mt-1 p-2 w-full border rounded-md"
+                />
               </div>
               <div className="w-1/2 ml-2">
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-600">
+                <label
+                  htmlFor="lastName"
+                  className="block text-sm font-medium text-gray-600"
+                >
                   Last Name
                 </label>
                 <input
@@ -176,69 +237,82 @@ const imgBBKey='7b2df886bbb1704f6ffd66486cd13fdb';
                 />
               </div>
             </div>
- 
-           {/* Email & Phone (Single Row) */}
-           <div className="mb-4 flex">
+
+            {/* Email & Phone (Single Row) */}
+            <div className="mb-4 flex">
               <div className="w-1/2 mr-2">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-600">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 p-2 w-full border rounded-md"
-              />
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mt-1 p-2 w-full border rounded-md"
+                />
               </div>
               <div className="w-1/2 ml-2">
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-600">
-                Phone
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="mt-1 p-2 w-full border rounded-md"
-              />
-          
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="mt-1 p-2 w-full border rounded-md"
+                />
               </div>
             </div>
-
 
             {/* Permanent Address & Present (Single Row) */}
             <div className="mb-4 flex">
               <div className="w-1/2 mr-2">
-              <label htmlFor="address" className="block text-sm font-medium text-gray-600">
-               Permanent  Address
-              </label>
-              <input
-                type="text"
-                id="permanentAddress"
-                value={permanentAddress}
-                onChange={(e) => setPermanentAddress(e.target.value)}
-                className="mt-1 p-2 w-full border rounded-md"
-              />
-            </div>
-            <div className="w-1/2 mr-2">
-              <label htmlFor="presentAddress" className="block text-sm font-medium text-gray-600">
-               Present  Address
-              </label>
-              <input
-                type="text"
-                id="presentAddress"
-                value={presentAddress}
-                onChange={(e) => setPresentAddress(e.target.value)}
-                className="mt-1 p-2 w-full border rounded-md"
-              />
-            </div>
+                <label
+                  htmlFor="address"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Permanent Address
+                </label>
+                <input
+                  type="text"
+                  id="permanentAddress"
+                  value={permanentAddress}
+                  onChange={(e) => setPermanentAddress(e.target.value)}
+                  className="mt-1 p-2 w-full border rounded-md"
+                />
+              </div>
+              <div className="w-1/2 mr-2">
+                <label
+                  htmlFor="presentAddress"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Present Address
+                </label>
+                <input
+                  type="text"
+                  id="presentAddress"
+                  value={presentAddress}
+                  onChange={(e) => setPresentAddress(e.target.value)}
+                  className="mt-1 p-2 w-full border rounded-md"
+                />
+              </div>
             </div>
 
             {/* Zip Code & City (Single Row) */}
             <div className="mb-4 flex">
               <div className="w-1/2 mr-2">
-                <label htmlFor="zipCode" className="block text-sm font-medium text-gray-600">
+                <label
+                  htmlFor="zipCode"
+                  className="block text-sm font-medium text-gray-600"
+                >
                   Zip Code
                 </label>
                 <input
@@ -250,7 +324,10 @@ const imgBBKey='7b2df886bbb1704f6ffd66486cd13fdb';
                 />
               </div>
               <div className="w-1/2 ml-2">
-                <label htmlFor="city" className="block text-sm font-medium text-gray-600">
+                <label
+                  htmlFor="city"
+                  className="block text-sm font-medium text-gray-600"
+                >
                   City
                 </label>
                 <input
@@ -265,7 +342,10 @@ const imgBBKey='7b2df886bbb1704f6ffd66486cd13fdb';
 
             {/* Country */}
             <div className="mb-4">
-              <label htmlFor="country" className="block text-sm font-medium text-gray-600">
+              <label
+                htmlFor="country"
+                className="block text-sm font-medium text-gray-600"
+              >
                 Country
               </label>
               <input
@@ -278,12 +358,17 @@ const imgBBKey='7b2df886bbb1704f6ffd66486cd13fdb';
             </div>
 
             {/* Save Button */}
-            <button type="submit" disabled={isLoading} className="bg-blue-900 text-white py-2 px-6 rounded-md hover:bg-blue-700">
-              Save {isLoading && (<BeatLoader color="#ffffff" size={8} />)}
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="bg-blue-900 text-white py-2 px-6 rounded-md hover:bg-blue-700"
+            >
+              Save {isLoading && <BeatLoader color="#ffffff" size={8} />}
             </button>
           </form>
         </div>
       </div>
+      )} 
     </>
   );
 };

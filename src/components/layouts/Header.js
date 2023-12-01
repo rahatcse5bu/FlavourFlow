@@ -16,13 +16,14 @@ const Header = () => {
 
     const handleLogout= ()=>{
         setLogged(false)
-        // localStorage.setItem('fName')[0]
-router.push('/')
+        localStorage.setItem('lastName',null);
+        localStorage.setItem('user_id',null);
+        router.push('/')
     }
 
     if (typeof window !== 'undefined') {
         // Perform localStorage action
-        firstName=   localStorage.getItem('fName')[0];
+        firstName=   localStorage.getItem('lastName')[0];
       }
     return (
 <header className="bg-[#005A9C] py-4 px-16">
