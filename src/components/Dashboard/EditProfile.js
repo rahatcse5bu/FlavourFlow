@@ -24,6 +24,36 @@ const EditProfile = () => {
       return localStorage.getItem("user_id");
     }
   };
+
+
+  const uploadImage = async ( file) => {
+    // alert('jhvjhvjhv')
+    try {
+      const formData = new FormData();
+      formData.append('key', "7b2df886bbb1704f6ffd66486cd13fdb");
+      formData.append('image', file);
+  
+      const response = await fetch('https://api.imgbb.com/1/upload', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Image upload failed with status: ${response.status}`);
+      }
+  
+      const result = await response.json();
+      console.log('result'+JSON.stringify(result))
+      console.log('url:=> '+result.data.url)
+      setSelectedImage(result.data.url)
+      return result;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
+    }
+  };
+
+  
   const updateUser = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -46,6 +76,7 @@ const EditProfile = () => {
             zipCode,
             city,
             country,
+            'image':selectedImage
           }),
         }
       );
@@ -91,6 +122,7 @@ const EditProfile = () => {
           setZipCode(data.zipCode);
           setCity(data.city);
           setCountry(data.country);
+          setSelectedImage(data.image);
           // notify("User got!!");
         } else {
           // notify("Failed To get Profile!!");
@@ -109,8 +141,8 @@ const EditProfile = () => {
     const file = e.target.files[0];
     if (file) {
       // Use the file for further processing, e.g., uploading to a server or updating state
-      setSelectedImage(file);
-
+      // setSelectedImage(file);
+      uploadImage(file);
       // If you want to preview the selected image, you can use FileReader
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -171,10 +203,15 @@ const EditProfile = () => {
         <div className="col-span-1 text-center flex flex-col items-center justify-center rounded-md">
           {/* Display selected image or default text */}
           {selectedImage ? (
+            // <img
+            //   src={URL.createObjectURL(selectedImage)}
+            //   alt="Selected"
+            //   className="w-full h-full rounded-md object-cover"
+            // />
             <img
-              src={URL.createObjectURL(selectedImage)}
+              src={selectedImage}
               alt="Selected"
-              className="w-full h-full rounded-md object-cover"
+              className="w-200 h-200 rounded-md object-cover"
             />
           ) : (
             "Image"
