@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Image from 'next/image';
 const EditProfile = () => {
   // Form state
   const [firstName, setFirstName] = useState("");
@@ -208,9 +209,9 @@ const EditProfile = () => {
             //   alt="Selected"
             //   className="w-full h-full rounded-md object-cover"
             // />
-            <img
+            <Image
               src={selectedImage}
-              alt="Selected"
+              alt="Selected" width={200} height={200}
               className="w-200 h-200 rounded-md object-cover"
             />
           ) : (

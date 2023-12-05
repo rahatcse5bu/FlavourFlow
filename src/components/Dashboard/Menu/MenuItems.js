@@ -36,7 +36,9 @@ const DashboardMenuItems = () => {
           </button>
         )}
       </div>
-      {tabMenuStatus.isMenuOpen && !tabMenuStatus.isMenuEdit && tabMenuStatus.isMenuAdd && <AddMenuItems />}
+      {tabMenuStatus.isMenuOpen &&
+        !tabMenuStatus.isMenuEdit &&
+        tabMenuStatus.isMenuAdd && <AddMenuItems />}
       {!tabMenuStatus.isMenuEdit &&
         !tabMenuStatus.isMenuAdd &&
         tabMenuStatus.isMenuOpen && <MenuItemGrid />}
