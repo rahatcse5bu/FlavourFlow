@@ -18,9 +18,13 @@ const MenuItem = ({product}) => {
   // };
 // alert(JSON.stringify(product))
   return (
-    <div className="flex items-center justify-center flex-col bg-slate-200 px-6 py-4 rounded-md">
+    <div className=" relative flex items-center justify-center flex-col bg-slate-200 px-6 py-4 rounded-md">
+      {product.category && (
+      <div className="text-sm bg-blue-900 text-white absolute  top-0 right-0 px-2 py-1 rounded-full">{product.category}</div>
+      )}
       <Image
-        src={`${product.image}`} width={200} height={150}
+        src={`${product.image}`} width={200} height={100} layout="responsive" // or layout="fixed"
+        maxHeight={80}
         alt="Delicious Pizza"
         className=" rounded-lg"
       />
