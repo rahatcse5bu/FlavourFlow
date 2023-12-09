@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const GeneralContext = createContext({
 	data: [],
@@ -34,7 +34,16 @@ const GenneralProvider = (props) => {
     const [selectedUser,setSelectedUser] = useState({})
     const [ selectedCategory, setSelectedCategory] = useState({})
     const [ selectedProduct, setSelectedProduct] = useState({})
+    const savedCartItems= JSON.parse(localStorage.getItem('carttt'))||[];
+    const [ cart, setCartProducts] = useState(savedCartItems)
+useEffect(()=>{
+    console.log('crrrrrr=>'+ JSON.stringify(cart))
+    // localStorage.setItem('cart',JSON.stringify(cart));
+    // localStorage.setItem('cart',JSON.stringify(JSON.parse(cart)));
+    localStorage.setItem('carttt',JSON.stringify(cart));
 
+    // console.log('vvvv'+JSON.stringify(cart));
+},[cart])
 	const value = {
         tabMenuStatus,
         setTabMenuStatus ,
@@ -49,6 +58,7 @@ const GenneralProvider = (props) => {
         selectedUser,
         selectedCategory,
         selectedProduct,
+        cart,
 
         setIsProfile,
         setIsUsers,
@@ -60,7 +70,8 @@ const GenneralProvider = (props) => {
 
         setSelectedUser,
         setSelectedCategory,
-        setSelectedProduct
+        setSelectedProduct,
+        setCartProducts
         
 
 		// success,

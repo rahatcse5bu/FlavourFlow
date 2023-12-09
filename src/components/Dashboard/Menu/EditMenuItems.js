@@ -55,7 +55,7 @@ const EditMenuItems = () => {
       const result = await response.json();
       console.log("result" + JSON.stringify(result));
       console.log("url:=> " + result.data.url);
-      setSelectedImage(result.data.url);
+      setProductImage(result.data.url);
       notify("Image uploaded Added!!");
       return result;
     } catch (error) {

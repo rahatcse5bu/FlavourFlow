@@ -18,6 +18,22 @@ const AddMenuItems = () => {
   const [tmpSize, setTmpSize] = useState("");
   const [tmpSizePrice, setTmpSizePrice] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
+  const handleRemoveSize =(e,menu)=>{
+    e.preventDefault();
+    setSize((prev) => {
+      // Check if the item already exists in the state
+      if (
+        prev.some(
+          ([size, price]) => size === menu[0] && price === menu[1]
+        )
+      ) {
+        // Remove the new item only if it  exists
+        return prev.filter(([size, price]) => !(size === menu[0] && price === menu[1]));
+      }
+
+    return prev;
+    });
+  }
   const uploadImage = async (file) => {
     try {
       const formData = new FormData();
@@ -213,8 +229,10 @@ const AddMenuItems = () => {
               >
                 Category
               </label>
-              <select onChange={(e)=>setCategory(e.target.value)}
-               className="mt-1 p-2 w-full border rounded-md bg-white focus:outline-none focus:ring focus:border-blue-300">
+              <select
+                onChange={(e) => setCategory(e.target.value)}
+                className="mt-1 p-2 w-full border rounded-md bg-white focus:outline-none focus:ring focus:border-blue-300"
+              >
                 <option>Pizza</option>
                 <option>Pasta</option>
                 <option>Burger</option>
@@ -224,22 +242,45 @@ const AddMenuItems = () => {
             <div className="">
               {sizes.map((size, index) => (
                 <div
-                  className="grid grid-cols-3 gap-4 my-2 items-center justify-center"
+                  className="flex justify-center items-center gap-4 my-2"
                   key={index}
                 >
-                  <div className="p-2 text-sm text-center bg-slate-200 rounded-sm">
+                  <div
+                    className="p-2 text-sm text-center bg-slate-200 rounded-sm"
+                    style={{ flex: "0.42" }}
+                  >
                     {size[0]}
                   </div>{" "}
-                  {/* <div className="p-2 text-sm text-center bg-slate-200 rounded-sm">----</div>{" "} */}
-                  <div className="p-2 text-sm text-center bg-slate-200 rounded-sm">
+                  {/* <div className="p-2 text-sm text-center bg-slate-200 rounded-sm" style={{ flex: '0.48' }}>----</div>{" "} */}
+                  <div
+                    className="p-2 text-sm text-center bg-slate-200 rounded-sm"
+                    style={{ flex: "0.48" }}
+                  >
                     {size[1]}
                   </div>
-                  <button className="bg-red-500 text-center text-white px-4 py-2 rounded-md">
-                    -
+                  <button onClick={(e)=>handleRemoveSize(e,size)}
+                    className="bg-red-500 text-center text-white px-4 py-2 rounded-md flex items-center justify-center"
+                    style={{ flex: "0.1" }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
                   </button>
                 </div>
               ))}
             </div>
+
             <label
               htmlFor="size"
               className="block text-sm font-medium text-gray-600 mr-2"

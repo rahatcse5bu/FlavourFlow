@@ -1,35 +1,63 @@
+import { GeneralContext } from "@/context/TabMenu";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Select from "react-select";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const ProductPopup = ({ modal, product }) => {
+  const notify = (status) => toast(status);
   // const [isModalOpen, setModalOpen] = useState(false);
+  const { cart, setCartProducts } = useContext(GeneralContext);
+  const [name, setName] = useState(product.name);
   const [qty, setQty] = useState(1);
-  const [totalPrice,setTotalPrice]=useState(Number(product.price));
-  const [menuPrice,setMenuPrice]=useState(0);
+  const [totalPrice, setTotalPrice] = useState(Number(product.price));
+  const [menuPrice, setMenuPrice] = useState(0);
   const [extraIngredients, setExtraIngredients] = useState(
     product.extraIngredients.map((ingredient, index) => ({
       value: ingredient,
       label: ingredient,
-      price:32
+      price: 32,
     }))
   );
   const [sizes, setSizes] = useState(
     product.sizes.map((size, index) => ({ value: size, label: size }))
   );
-
+  // const [cart, setCartItem] = useState(localStorage.getItem('cart')||[]);
   const handleCloseModal = () => {
     // setModalOpen(false);
+    console.log("cart item=>" + JSON.stringify(cart));
     modal(false);
   };
   const handleAddToCart = () => {
+    setCartProducts((prev) => [
+      ...prev,
+      {
+        name: name,
+        qty: qty,
+        totalPrice: totalPrice,
+        menuPrice: menuPrice,
+        sizes: sizes,
+        extraIngredients: extraIngredients,
+      },
+    ]);
+    notify("Added to cart");
+  // setCartProducts((prev)=>[...prev,])
     // setModalOpen(false);
-    modal(false);
+    setTimeout(() => {
+      modal(false);
+    }, 1500);
+    console.log('cartttt=>'+JSON.stringify(cart));
   };
-  useEffect(()=>{
-setTotalPrice((qty*product.price) +Number(menuPrice));
-  },[qty,menuPrice])
+  // useEffect(()=>{
+  //   setCartItem();
+  //   localStorage.setItem('cart',cart)
+  // },[cart])
+  useEffect(() => {
+    setTotalPrice(qty * product.price + Number(menuPrice));
+  }, [qty, menuPrice]);
   return (
     <>
+    <ToastContainer/>
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div className="bg-white p-8 rounded-lg max-h-[80vh] overflow-y-auto">
           {/* Modal Content */}
@@ -61,31 +89,34 @@ setTotalPrice((qty*product.price) +Number(menuPrice));
               />
             </div>
             <div className="text-center text-sm ml-4">
-              Total Cost: ${(totalPrice).toFixed(2)}
+              Total Cost: ${totalPrice.toFixed(2)}
             </div>
           </div>
           {/* Extra Items */}
-          <div className="mb-4">
-            <label
-              htmlFor="extraItems"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Extra Items
-            </label>
-            {product.sizes.map((size, index) => (
-              <label key={index} className="flex items-center">
-                <input onChange={(e)=>setMenuPrice(e.target.value)}
-                  type="radio"
-                  id={`variant-${index}`}
-                  name="variantList"
-                  value={size[1]}
-                  className="mr-2"
-                />
-                {size[0]} -- ${size[1]}
+          {product.sizes.length > 0 && (
+            <div className="mb-4">
+              <label
+                htmlFor="extraItems"
+                className="block text-sm font-medium text-gray-600"
+              >
+                Extra Items
               </label>
-            ))}
-            {/* <Select options={sizes} isMulti /> */}
-          </div>
+              {product.sizes.map((size, index) => (
+                <label key={index} className="flex items-center">
+                  <input
+                    onChange={(e) => setMenuPrice(e.target.value)}
+                    type="radio"
+                    id={`variant-${index}`}
+                    name="variantList"
+                    value={size[1]}
+                    className="mr-2"
+                  />
+                  {size[0]} -- ${size[1]}
+                </label>
+              ))}
+              {/* <Select options={sizes} isMulti /> */}
+            </div>
+          )}
           {/* Gradients */}
           <div className="mb-4">
             <label
